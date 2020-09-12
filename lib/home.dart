@@ -88,130 +88,143 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               child: Stack(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: 8, horizontal: showIconMenu ? 0 : 10),
-                    child: ClipRRect(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        borderRadius: BorderRadius.circular(45),
-                        child: Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 8, horizontal: showIconMenu ? 0 : 10),
+                      child: Container(
+                          height: 70.0,
+                          width: menuAnimation.value,
+                          decoration: BoxDecoration(
                             color: Color(0xff373335),
-                            width: menuAnimation.value,
-                            height: 70.0,
-                            child: menuAnimation.value < 370
-                                ? Material(
-                                    color: Color(0xff373335),
-                                    child: InkWell(
-                                      onTap: () {
-                                        _menuController.reverse();
-                                        _controller.reverse();
-                                        setState(() {
-                                          showIconMenu = false;
-                                        });
-                                      },
-                                      child: showIconMenu
-                                          ? RotationTransition(
-                                              turns: Tween(begin: 0.0, end: 0.5)
-                                                  .animate(_controller),
+                            borderRadius: BorderRadius.circular(45),
+                            boxShadow: !showIconMenu
+                                ? [
+                                    BoxShadow(
+                                        color: Colors.black,
+                                        blurRadius: 8,
+                                        offset: Offset(2.0, 3.0),
+                                        spreadRadius: 0.6)
+                                  ]
+                                : [],
+                          ),
+                          child: ClipRRect(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              borderRadius: BorderRadius.circular(45),
+                              child: menuAnimation.value < 370
+                                  ? Material(
+                                      color: Color(0xff373335),
+                                      child: InkWell(
+                                        onTap: () {
+                                          _menuController.reverse();
+                                          _controller.reverse();
+                                          setState(() {
+                                            showIconMenu = false;
+                                          });
+                                        },
+                                        child: showIconMenu
+                                            ? RotationTransition(
+                                                turns:
+                                                    Tween(begin: 0.0, end: 0.5)
+                                                        .animate(_controller),
+                                                child: Icon(
+                                                  Icons.menu,
+                                                  color: Colors.white,
+                                                ))
+                                            : null,
+                                      ))
+                                  : BottomNavigationBarOverride
+                                      .BottomNavigationBar(
+                                      backgroundColor: Color(0xff373335),
+                                      elevation: 0,
+                                      type: BottomNavigationBarOverride
+                                          .BottomNavigationBarType.fixed,
+                                      showUnselectedLabels: false,
+                                      showSelectedLabels: false,
+                                      onTap: _onItemTapped,
+                                      currentIndex: _selectedIndex,
+                                      unselectedItemColor: Color(0xffa9a6a8),
+                                      items: <BottomNavigationBarItem>[
+                                        BottomNavigationBarItem(
+                                          icon: Icon(
+                                            Icons.account_balance_wallet,
+                                          ),
+                                          activeIcon: Container(
+                                            width: 120,
+                                            height: 120,
+                                            child: Ink(
+                                              decoration: const ShapeDecoration(
+                                                color: Color(0xFFFffbf1b),
+                                                shape: CircleBorder(),
+                                              ),
                                               child: Icon(
-                                                Icons.menu,
-                                                color: Colors.white,
-                                              ))
-                                          : null,
-                                    ))
-                                : BottomNavigationBarOverride
-                                    .BottomNavigationBar(
-                                    backgroundColor: Color(0xff373335),
-                                    elevation: 0,
-                                    type: BottomNavigationBarOverride
-                                        .BottomNavigationBarType.fixed,
-                                    showUnselectedLabels: false,
-                                    showSelectedLabels: false,
-                                    onTap: _onItemTapped,
-                                    currentIndex: _selectedIndex,
-                                    unselectedItemColor: Color(0xffa9a6a8),
-                                    items: <BottomNavigationBarItem>[
-                                      BottomNavigationBarItem(
-                                        icon: Icon(
-                                          Icons.account_balance_wallet,
+                                                Icons.account_balance_wallet,
+                                                color: Color(0xff373335),
+                                              ),
+                                            ),
+                                          ),
+                                          title: Text('1'),
                                         ),
-                                        activeIcon: Container(
-                                          width: 120,
-                                          height: 120,
-                                          child: Ink(
+                                        BottomNavigationBarItem(
+                                          activeIcon: Container(
+                                            width: 120,
+                                            height: 120,
+                                            child: Ink(
+                                              decoration: const ShapeDecoration(
+                                                color: Color(0xFFFffbf1b),
+                                                shape: CircleBorder(),
+                                              ),
+                                              child: Icon(
+                                                Icons.compare_arrows,
+                                                color: Color(0xff373335),
+                                              ),
+                                            ),
+                                          ),
+                                          icon: Icon(
+                                            Icons.compare_arrows,
+                                          ),
+                                          title: Text('3'),
+                                        ),
+                                        BottomNavigationBarItem(
+                                          activeIcon: Container(
+                                            width: 120,
+                                            height: 120,
+                                            child: Ink(
+                                              decoration: const ShapeDecoration(
+                                                color: Color(0xFFFffbf1b),
+                                                shape: CircleBorder(),
+                                              ),
+                                              child: Icon(
+                                                Icons.monetization_on,
+                                                color: Color(0xff373335),
+                                                size: 27,
+                                              ),
+                                            ),
+                                          ),
+                                          icon: Icon(
+                                            Icons.monetization_on,
+                                          ),
+                                          title: Text('3'),
+                                        ),
+                                        BottomNavigationBarItem(
+                                          icon: Icon(Icons.border_all),
+                                          activeIcon: Ink(
                                             decoration: const ShapeDecoration(
                                               color: Color(0xFFFffbf1b),
                                               shape: CircleBorder(),
                                             ),
-                                            child: Icon(
-                                              Icons.account_balance_wallet,
-                                              color: Color(0xff373335),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(16.0),
+                                              child: Icon(
+                                                Icons.border_all,
+                                                size: 17,
+                                                color: Color(0xff373335),
+                                              ),
                                             ),
                                           ),
+                                          title: Text('News'),
                                         ),
-                                        title: Text('1'),
-                                      ),
-                                      BottomNavigationBarItem(
-                                        activeIcon: Container(
-                                          width: 120,
-                                          height: 120,
-                                          child: Ink(
-                                            decoration: const ShapeDecoration(
-                                              color: Color(0xFFFffbf1b),
-                                              shape: CircleBorder(),
-                                            ),
-                                            child: Icon(
-                                              Icons.compare_arrows,
-                                              color: Color(0xff373335),
-                                            ),
-                                          ),
-                                        ),
-                                        icon: Icon(
-                                          Icons.compare_arrows,
-                                        ),
-                                        title: Text('3'),
-                                      ),
-                                      BottomNavigationBarItem(
-                                        activeIcon: Container(
-                                          width: 120,
-                                          height: 120,
-                                          child: Ink(
-                                            decoration: const ShapeDecoration(
-                                              color: Color(0xFFFffbf1b),
-                                              shape: CircleBorder(),
-                                            ),
-                                            child: Icon(
-                                              Icons.monetization_on,
-                                              color: Color(0xff373335),
-                                              size: 27,
-                                            ),
-                                          ),
-                                        ),
-                                        icon: Icon(
-                                          Icons.monetization_on,
-                                        ),
-                                        title: Text('3'),
-                                      ),
-                                      BottomNavigationBarItem(
-                                        icon: Icon(Icons.border_all),
-                                        activeIcon: Ink(
-                                          decoration: const ShapeDecoration(
-                                            color: Color(0xFFFffbf1b),
-                                            shape: CircleBorder(),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(16.0),
-                                            child: Icon(
-                                              Icons.border_all,
-                                              size: 17,
-                                              color: Color(0xff373335),
-                                            ),
-                                          ),
-                                        ),
-                                        title: Text('News'),
-                                      ),
-                                    ],
-                                  ))),
-                  ),
+                                      ],
+                                    )))),
                   Positioned(
                       right: 25,
                       bottom: 95,
